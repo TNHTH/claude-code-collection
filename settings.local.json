@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx:*)",
+      "Bash(npm install:*)",
+      "WebSearch",
+      "mcp__firecrawl__firecrawl_search",
+      "mcp__firecrawl__firecrawl_scrape",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "mcp__memory__create_entities",
+      "mcp__tavily-search__tavily-search",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(del:*)",
+      "mcp__memory__read_graph",
+      "mcp__memory__add_observations",
+      "mcp__github__create_repository",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)",
+      "Bash(du:*)",
+      "Bash(gh auth login:*)"
+    ]
+  }
+}
