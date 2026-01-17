@@ -5,431 +5,200 @@ description: Intelligently organizes your files and folders across your computer
 
 # File Organizer
 
-This skill acts as your personal organization assistant, helping you maintain a clean, logical file structure across your computer without the mental overhead of constant manual organization.
+智能文件组织助手，帮助维护清晰、逻辑化的文件结构。
 
-**Integrated with your file organization rules:**
-- Non-project documents → `D:\cursor\file\Si Yuan\claude\`
-- Temporary files → `D:\cursor\file\.claude-temp\`
-- Project files → Respective project directories
+**集成文件组织规则**:
+- 非项目文档 → `D:\cursor\file\Si Yuan\claude\`
+- 临时文件 → `D:\cursor\file\.claude-temp\`
+- 项目文件 → 各自项目目录
 
-## When to Use This Skill
+---
 
-- Your Downloads folder is a chaotic mess
-- You can't find files because they're scattered everywhere
-- You have duplicate files taking up space
-- Your folder structure doesn't make sense anymore
-- You want to establish better organization habits
-- You're starting a new project and need a good structure
-- You're cleaning up before archiving old projects
+## 何时使用
 
-## What This Skill Does
+- Downloads文件夹混乱
+- 文件散落各处找不到
+- 有重复文件占用空间
+- 文件夹结构不合理
+- 需要建立更好的组织习惯
+- 新项目需要良好结构
+- 清理和归档旧项目
 
-1. **Analyzes Current Structure**: Reviews your folders and files to understand what you have
-2. **Finds Duplicates**: Identifies duplicate files across your system
-3. **Suggests Organization**: Proposes logical folder structures based on your content
-4. **Automates Cleanup**: Moves, renames, and organizes files with your approval
-5. **Maintains Context**: Makes smart decisions based on file types, dates, and content
-6. **Reduces Clutter**: Identifies old files you probably don't need anymore
+---
 
-## Your File Organization Rules
+## 核心功能
 
-This skill follows your established rules from `file-organization.md`:
+1. **分析当前结构**: 审查文件夹和文件
+2. **查找重复**: 识别系统中的重复文件
+3. **建议组织方案**: 基于内容提出逻辑结构
+4. **自动化清理**: 经批准后移动、重命名、组织文件
+5. **维护上下文**: 基于文件类型、日期、内容智能决策
+6. **减少杂乱**: 识别可能不需要的旧文件
 
-### Document Storage Rules
+---
+
+## 文件组织规则
+
+### 文档存放规则
 
 ```
-✅ Non-Project Documents → D:\cursor\file\Si Yuan\claude\
+✅ 非项目文档 → D:\cursor\file\Si Yuan\claude\
    - 科普类文档
    - 分析报告
    - 学习笔记类文档
    - 任何非项目相关的独立文档
 
-✅ Project Documents → Project Directory
-   - User explicitly specified path
-   - Belongs to specific project
+✅ 项目文档 → 项目目录
+   - 用户明确指定路径
+   - 属于特定项目
 
-✅ Temporary Files → D:\cursor\file\.claude-temp\
-   - tmpclaude-*-cwd files
-   - Temporary test files
-   - Temporary script files
+✅ 临时文件 → D:\cursor\file\.claude-temp\
+   - tmpclaude-*-cwd文件
+   - 临时测试文件
+   - 临时脚本文件
 ```
 
-### File Naming Conventions
+### 文件命名规范
 
-- Use Chinese filenames for better recognition
-- Format: `主题_类型_YYYY-MM-DD.md`
-  - Example: `低波投资策略_科普_2025-01-13.md`
-  - Example: `阿根廷现状_分析_2026-01-12.md`
-- Or simpler: `主题_说明.md`
+- ✅ 使用中文文件名便于识别
+- ✅ 格式: `主题_类型_YYYY-MM-DD.md`
+  - 示例: `低波投资策略_科普_2025-01-13.md`
+  - 或简化: `主题_说明.md`
 
-### Cleanup Strategy
+### 清理策略
 
-- Conversation ends: Can clean up `.claude-temp\`
-- Keep `.claude-temp\` folder itself
-- Never commit to Git repository
+- 对话结束时: 可清理`.claude-temp\`
+- 保留`.claude-temp\`文件夹本身
+- 从不提交到Git仓库
 
-## How to Use
+---
 
-### From Your Home Directory
+## 快速检查清单
+
+### 生成新文档时
+```
+□ 是项目文件？
+  - 是 → 存放到项目目录
+  - 否 → 继续检查
+
+□ 用户明确指定路径？
+  - 是 → 使用用户指定路径
+  - 否 → 存放到 Si Yuan\claude\
+
+□ 检查目标目录是否存在
+  - 不存在 → 创建目录
+
+□ 使用规范的文件命名
+```
+
+### 清理临时文件时
+```
+□ 确认是否为临时文件
+□ 存放到 .claude-temp/ 目录
+□ 对话结束后提醒用户清理
+```
+
+### 文件组织时
+```
+□ 分析当前文件结构
+□ 识别重复文件
+□ 提出组织方案
+□ 获得用户批准
+□ 执行文件移动/重命名
+```
+
+---
+
+## 使用方式
+
+### 基本工作流
 
 ```powershell
+# 1. 进入项目目录
 cd D:\cursor\file
+
+# 2. 请求组织文件
+"请帮我组织这些文件"
+
+# 3. AI分析并建议方案
+# 4. 用户批准
+# 5. 自动执行组织
 ```
 
-Then ask Claude:
-```
-Help me organize my Downloads folder
-```
+### 常用命令
 
-```
-Find duplicate files in my Documents folder
-```
-
-```
-Review my project directories and suggest improvements
-```
-
-### Specific Organization Tasks
-
-```
-Organize these downloads into proper folders based on what they are
-```
-
-```
-Find duplicate files and help me decide which to keep
-```
-
-```
-Clean up old files I haven't touched in 6+ months
-```
-
-```
-Create a better folder structure for my [work/projects/photos/etc]
-```
-
-## Instructions
-
-When a user requests file organization help:
-
-### 1. Understand the Scope
-
-Ask clarifying questions:
-- Which directory needs organization? (Downloads, Documents, entire folder?)
-- What's the main problem? (Can't find things, duplicates, too messy, no structure?)
-- Any files or folders to avoid? (Current projects, sensitive data?)
-- How aggressively to organize? (Conservative vs. comprehensive cleanup)
-
-### 2. Analyze Current State
-
-Review the target directory:
+**分析文件夹**:
 ```powershell
-# Get overview of current structure
-Get-ChildItem -Force "target_directory"
-
-# Check file types
-Get-ChildItem -Recurse -File "target_directory" | Group-Object Extension | Sort-Object Count -Descending
-
-# Identify largest files
-Get-ChildItem -Recurse -File "target_directory" | Sort-Object Length -Descending | Select-Object -First 20
-
-# Count by file type
-Get-ChildItem -Recurse -File "target_directory" | Group-Object Extension
+"分析Downloads文件夹并建议组织方案"
 ```
 
-Summarize findings:
-- Total files and folders
-- File type breakdown
-- Size distribution
-- Date ranges
-- Obvious organization issues
-
-### 3. Identify Organization Patterns
-
-Based on the files, determine logical groupings:
-
-**By Type**:
-- Documents (PDFs, DOCX, TXT, MD)
-- Images (JPG, PNG, SVG)
-- Videos (MP4, MOV)
-- Archives (ZIP, TAR, RAR)
-- Code/Projects (directories with code)
-- Spreadsheets (XLSX, CSV)
-- Presentations (PPTX, KEY)
-
-**By Purpose**:
-- Work vs. Personal
-- Active vs. Archive
-- Project-specific
-- Reference materials
-- Temporary/scratch files
-
-**By Your Rules**:
-- Non-project docs → `Si Yuan\claude\`
-- Project docs → Project directories
-- Temporary → `.claude-temp\`
-
-### 4. Find Duplicates
-
-When requested, search for duplicates:
+**查找重复文件**:
 ```powershell
-# Find files with same name
-Get-ChildItem -Recurse -File | Group-Object Name | Where-Object { $_.Count -gt 1 }
-
-# Find files with same size (potential duplicates)
-Get-ChildItem -Recurse -File | Group-Object Length | Where-Object { $_.Count -gt 1 }
+"查找重复的PDF文件"
 ```
 
-For each set of duplicates:
-- Show all file paths
-- Display sizes and modification dates
-- Recommend which to keep (usually newest or best-named)
-- **Important**: Always ask for confirmation before deleting
-
-### 5. Propose Organization Plan
-
-Present a clear plan before making changes:
-
-```markdown
-# Organization Plan for [Directory]
-
-## Current State
-- X files across Y folders
-- [Size] total
-- File types: [breakdown]
-- Issues: [list problems]
-
-## Proposed Structure
-
-Following your file organization rules:
-
-```
-Directory/
-├── Projects/           → Keep in project directories
-├── Si Yuan/
-│   └── claude/        → Non-project documents
-│       ├──科普/
-│       ├──分析/
-│       └──笔记/
-└── .claude-temp/      → Temporary files
-```
-
-## Changes I'll Make
-
-1. **Create new folders**: [list]
-2. **Move files**:
-   - X non-project docs → `Si Yuan\claude\`
-   - Y project files → respective project directories
-   - Z temp files → `.claude-temp\`
-3. **Rename files**: [any renaming patterns following `主题_类型_日期.md`]
-4. **Delete**: [duplicates or trash files]
-
-## Files Needing Your Decision
-
-- [List any files you're unsure about]
-
-Ready to proceed? (yes/no/modify)
-```
-
-### 6. Execute Organization
-
-After approval, organize systematically:
-
+**清理临时文件**:
 ```powershell
-# Create folder structure
-New-Item -ItemType Directory -Force -Path "path\to\new\folders"
-
-# Move files with clear logging
-Move-Item "old\path\file.pdf" "new\path\file.pdf"
-
-# Rename files with consistent patterns
-# Example: "2026-01-13 - 低波投资策略科普.md"
+"清理.claude-temp目录"
 ```
 
-**Important Rules**:
-- Always confirm before deleting anything
-- Log all moves for potential undo
-- Preserve original modification dates
-- Handle filename conflicts gracefully
-- Stop and ask if you encounter unexpected situations
-- **Follow file organization rules**: Non-project docs → `Si Yuan\claude\`
-
-### 7. Provide Summary and Maintenance Tips
-
-After organizing:
-
-```markdown
-# Organization Complete! ✨
-
-## What Changed
-
-- Created [X] new folders
-- Organized [Y] files
-- Freed [Z] GB by removing duplicates
-- Archived [W] old files
-
-## New Structure
-
-[Show the new folder tree]
-
-## Maintenance Tips
-
-To keep this organized:
-
-1. **Weekly**: Sort new downloads into proper folders
-2. **Monthly**: Review and archive completed projects
-3. **Quarterly**: Check for new duplicates
-4. **Yearly**: Archive old files
-
-## Quick Commands for You
-
+**组织项目文件**:
 ```powershell
-# Find files modified this week
-Get-ChildItem -Recurse -File | Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-7) }
-
-# Find duplicates by name
-Get-ChildItem -Recurse -File | Group-Object Name | Where-Object { $_.Count -gt 1 }
-
-# Clean temp files (conversation ends)
-Remove-Item -Recurse -Force "D:\cursor\file\.claude-temp\*"
+"按类型组织当前目录的文件"
 ```
 
-Want to organize another folder?
+---
+
+## 最佳实践
+
+### 文档生成
+- ✅ 自动应用文件组织规则
+- ✅ 使用中文文件名
+- ✅ 添加日期标识
+- ✅ 分类存放
+
+### 临时文件
+- ✅ 统一存放.claude-temp\
+- ✅ 对话结束后清理
+- ✅ 不提交到Git
+
+### 文件命名
+- ✅ 清晰描述内容
+- ✅ 使用分隔符"_"
+- ✅ 包含类型标识
+- ✅ 避免特殊字符
+
+---
+
+## PowerShell示例
+
+详见: `scripts/examples.ps1`
+
+基本操作:
+```powershell
+# 创建目录
+New-Item -ItemType Directory -Force -Path "Si Yuan\claude\"
+
+# 移动文件
+Move-Item "file.txt" "Si Yuan\claude\file.txt"
+
+# 清理临时文件
+Get-ChildItem ".claude-temp\*.txt" | Remove-Item
 ```
 
-## Examples
+---
 
-### Example 1: Organizing Downloads
+## Optional Reading (按需加载)
 
-**User**: "My Downloads folder is a mess with 500+ files. Help me organize it."
+深入了解:
+- `.claude/skills/file-organizer/scripts/examples.ps1` - PowerShell示例
+- `.claude/skills/file-organizer/references/detailed-guide.md` - 详细指南
+- `.claude/skills/file-organizer/references/windows-tips.md` - Windows特定提示
 
-**Process**:
-1. Analyzes Downloads folder
-2. Finds patterns: work docs, personal photos, installers, random PDFs
-3. Proposes structure:
-   - Projects/ → Move to respective project directories
-   - `Si Yuan\claude\` → Move non-project docs here
-   - `.claude-temp\` → Temporary files
-4. Asks for confirmation
-5. Moves files intelligently based on content and names
-6. Results: 500 files → organized across proper directories
+历史版本归档在 `archive/file-organizer-v1.0.md`
 
-### Example 2: Finding and Removing Duplicates
+---
 
-**User**: "Find duplicate files in my Documents and help me decide which to keep."
-
-**Output**:
-```markdown
-# Found 23 Sets of Duplicates (156 MB total)
-
-## Duplicate Set 1: "proposal.pdf"
-- `D:\cursor\file\Documents\proposal.pdf` (2.3 MB, modified: 2026-01-15)
-- `D:\cursor\file\Documents\old\proposal.pdf` (2.3 MB, modified: 2026-01-15)
-- `D:\cursor\file\Desktop\proposal.pdf` (2.3 MB, modified: 2026-01-10)
-
-**Recommendation**: Keep `Documents\proposal.pdf` (most recent in correct location)
-Delete the other 2 copies?
-
-[Continue for all duplicates...]
-```
-
-### Example 3: Organizing Non-Project Documents
-
-**User**: "I have markdown files scattered everywhere. Organize them."
-
-**Output**: Creates structure like:
-```
-D:\cursor\file\Si Yuan\claude\
-├── 科普/
-│   └── 低波投资策略_科普_2025-01-13.md
-├── 分析/
-│   └── 阿根廷现状_分析_2026-01-12.md
-└── 笔记/
-    └── Claude Code使用_笔记_2026-01-13.md
-```
-
-Then renames files following `主题_类型_日期.md` pattern.
-
-## Common Organization Tasks
-
-### Downloads Cleanup
-```
-Organize my Downloads folder - move non-project documents to Si Yuan\claude\,
-project files to their respective directories, keep installers separate,
-and archive files older than 3 months.
-```
-
-### Project Organization
-```
-Review my Projects folder structure and help me separate active
-projects from old ones I should archive.
-```
-
-### Duplicate Removal
-```
-Find all duplicate files in my Documents folder and help me
-decide which ones to keep.
-```
-
-### Desktop Cleanup
-```
-My Desktop is covered in files. Help me organize everything into
-proper folders following my file organization rules.
-```
-
-### Document Organization
-```
-Organize all markdown files in Si Yuan\claude\ by type
-(科普, 分析, 笔记) and rename them following the pattern.
-```
-
-## Pro Tips
-
-1. **Start Small**: Begin with one messy folder (like Downloads) to build trust
-2. **Regular Maintenance**: Run weekly cleanup on Downloads
-3. **Consistent Naming**: Use "主题_类型_YYYY-MM-DD.md" format
-4. **Archive Aggressively**: Move old projects to Archive instead of deleting
-5. **Keep Active Separate**: Maintain clear boundaries between active and archived work
-6. **Follow Your Rules**: Always use `Si Yuan\claude\` for non-project docs
-
-## Best Practices
-
-### Folder Naming
-- Use clear, descriptive names
-- Avoid spaces (use hyphens or underscores)
-- Be specific: "client-proposals" not "docs"
-- Use prefixes for ordering: "01-current", "02-archive"
-
-### File Naming
-- Include dates: "2026-01-13-meeting-notes.md"
-- Be descriptive: "q3-financial-report.xlsx"
-- Use Chinese names for better recognition
-- Remove download artifacts: "document-final-v2 (1).pdf" → "document.pdf"
-- Follow pattern: "主题_类型_日期.md"
-
-### When to Archive
-- Projects not touched in 6+ months
-- Completed work that might be referenced later
-- Old versions after migration to new systems
-- Files you're hesitant to delete (archive first)
-
-## Error Handling
-
-**Important**: Always confirm before:
-- Deleting files
-- Moving large numbers of files
-- Overwriting existing files
-- Modifying system folders
-
-If uncertain:
-1. Stop and ask the user
-2. Explain the situation clearly
-3. Provide options
-4. Wait for confirmation
-
-## Related Use Cases
-
-- Setting up organization for a new computer
-- Preparing files for backup/archiving
-- Cleaning up before storage cleanup
-- Organizing shared team folders
-- Structuring new project directories
+**Version**: v2.0 (Lean Runtime)
+**Last Updated**: 2026-01-17
+**Integrated Rules**: file-organization.md

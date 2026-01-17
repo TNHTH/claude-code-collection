@@ -1,820 +1,235 @@
 ---
 name: dialogue-optimizer
-description: 自动评估对话效率和质量，分析token使用优化策略。在每次对话结束时自动执行，无需用户提醒。持续学习和改进对话效率。
-license: MIT
+description: 自动评估对话效率，分析token优化策略。每次对话结束时自动执行，持续学习改进。
 ---
 
-# Dialogue Optimizer - 对话优化评估器
+# Dialogue Optimizer - Runtime Protocol
 
 ## 概述
 
-自动评估每次对话的效率和质量，分析如何用最少的token达到最好的效果。在每次对话结束时自动运行，持续优化对话策略。
+每次对话结束时自动执行，评估效率并优化策略。
 
-**核心理念**：
-- 🎯 最大化输出价值
-- 💬 最小化token消耗
-- 📊 数据驱动改进
-- 🔄 持续学习优化
+## 核心运行时规则
 
+### Layer 1: Operational Principles (Always Active)
+
+**1. MVP Execution**
+```
+First sentence = Solution
+No preamble, no "I'll help you", no "Let me check"
+```
+
+**2. Parallelism**
+```
+✅ Parallel: Glob(pattern) → Read(file1, file2, file3)
+❌ Serial: Read(file1) → Read(file2) → Read(file3)
+Time savings: 66% (t vs 3t)
+```
+
+**3. Entropy Control**
+```
+Delete sentences with zero information:
+- "I see", "Great question", "Let me think", "Okay"
+```
+
+**4. Structure Priority**
+```
+Code > Table > List > Paragraph
+```
+
+### Layer 1.5: Critical Intelligence (Always Active)
+
+**5. Critical Delivery (Risk Warning)**
+```
+触发条件：安全 / 性能 / 生产环境 / 架构决策
+行动：
+- 代码中添加一行 # TODO 注释
+- 或输出中添加一句话警告
+```
+
+**6. Cross-Lingual Tech Research**
+```
+范围：编程 API、库、框架问题
+流程：英文关键词搜索 → 英文文档阅读 → 中文总结
+```
+
+**7. Two-Step Clarification**
+```
+判断标准：
+- 明显模糊 → 提问
+- 可能模糊 → 执行 + 假设标注
+- 明确 → 直接执行
+```
+
+## Layer 2: Assessment Protocol
+
+### Routine Snapshot (Conditional)
+
+**Silent Mode**: IF Token=S/A AND Tools=⭐⭐⭐⭐⭐ → STAY SILENT
+
+**Otherwise**: Append compact block:
+```markdown
 ---
-
-## 自动触发机制
-
-每次对话结束时，自动执行以下评估：
-1. 统计本次对话的token使用
-2. 分析输出内容的密度和价值
-3. 识别可以优化的地方
-4. 生成改进建议
-5. 更新优化记录
-
+🛡️ **Opt**: Tools: ⭐⭐⭐⭐⭐ | Token: A | Issues: None
 ---
-
-## 评估维度
-
-### 1. Token效率分析
-
-```
-评估指标：
-├─ 总token使用量
-├─ 输入vs输出比例
-├─ 单次调用平均token
-└─ 重复内容占比
-
-优秀标准：
-✓ 输出/输入比 > 3:1
-✓ 单次输出 < 2000 tokens
-✓ 重复内容 < 10%
 ```
 
-### 2. 输出质量评估
+**Rating Criteria**:
 
-```
-评估指标：
-├─ 信息密度（实质性内容/总内容）
-├─ 完整性（是否回答了所有问题）
-├─ 准确性（是否需要多次纠正）
-└─ 可用性（用户是否需要反复追问）
+**Tools (⭐⭐⭐⭐⭐)**:
+- ⭐⭐⭐⭐⭐: Excellent parallel optimization
+- ⭐⭐⭐⭐: Some parallelism, correct usage
+- ⭐⭐⭐: Serial but correct
 
-优秀标准：
-✓ 信息密度 > 70%
-✓ 完整性 > 90%
-✓ 准确性 > 95%（首次即正确）
-```
+**Token (S/A/B/C/D)**:
+- **S**: Zero redundancy, perfect MVP
+- **A**: Minimal redundancy
+- **B**: Acceptable but some waste
+- **C**: Significant waste
+- **D**: Severe inefficiency
 
-### 3. 工具使用效率
-
-```
-评估指标：
-├─ 工具调用次数
-├─ 工具调用成功率
-├─ 并行调用利用率
-└─ 工具选择合理性
-
-优秀标准：
-✓ 工具调用成功率 > 95%
-✓ 并行调用率 > 50%（可并行的场景）
-✓ 无冗余调用
-```
-
-### 4. 内容结构优化
-
-```
-评估指标：
-├─ 是否使用结构化输出（表格、列表）
-├─ 代码vs文字比例
-├─ 链接vs描述比例
-└─ 分段合理性
-
-优秀标准：
-✓ 优先使用结构化输出
-✓ 代码+说明（非纯文字）
-✓ 提供链接而非冗长描述
-```
-
----
-
-## 自动评估流程
-
-每次对话结束时，自动执行：
-
-### 步骤1：收集数据
-
-```python
-# 收集本次对话数据
-dialogue_stats = {
-    "total_tokens": 总token数,
-    "input_tokens": 输入token数,
-    "output_tokens": 输出token数,
-    "tool_calls": 工具调用次数,
-    "tool_errors": 工具失败次数,
-    "user_corrections": 用户纠正次数,
-    "refinement_needed": 是否需要优化
-}
-```
-
-### 步骤2：计算效率指标
-
-```python
-# 计算关键指标
-efficiency_metrics = {
-    "token_ratio": output_tokens / input_tokens,
-    "avg_output": output_tokens / response_count,
-    "tool_success_rate": (tool_calls - tool_errors) / tool_calls,
-    "info_density": 实质性内容token / 总输出token,
-    "first_try_accuracy": (questions - user_corrections) / questions
-}
-```
-
-### 步骤3：生成评估报告
+### Full Assessment (Every 10th Response OR User Requested)
 
 ```markdown
-## 本次对话效率评估
+---
+📊 **Full Assessment**
 
-### Token使用
-- 总token：{total_tokens}
-- 输入token：{input_tokens}
-- 输出token：{output_tokens}
-- 输出/输入比：{token_ratio}
+## Metrics
+- Total tool calls: [估算值]
+- Parallel operations: [数量]
+- Est. time saved: [百分比%]
 
-### 质量指标
-- 信息密度：{info_density}%
-- 首次准确率：{first_try_accuracy}%
-- 工具成功率：{tool_success_rate}%
+## Performance
+- Tools: ⭐⭐⭐⭐⭐
+- Token: A
+- Entropy: High/Med/Low
 
-### 优化建议
-{基于上述指标的改进建议}
+## Findings
+### Strengths
+- [1-3 points]
+
+### Optimization Opportunities
+- [1-3 specific points]
+
+## Rules to Consider
+- [If pattern≥3, list potential new rules]
+---
 ```
 
-### 步骤4：记录优化历史
+## Layer 3: Evolution Protocol
 
+### Trigger Conditions
+Initiate evolution when **ANY** condition is met:
+1. Pattern frequency ≥ 3 times
+2. Token saving opportunity ≥ 20%
+3. User explicitly requests "Remember this rule"
+4. Critical security/safety issue identified
+
+### Rule Format (STRICT)
+
+All rules MUST follow this YAML structure:
+
+```yaml
+- id: DR-XXX
+  created: 2026-01-17
+  frequency: 5
+  category: efficiency|security|pattern
+  title: "Brief title"
+  content: "Specific rule content"
+  rationale: "Why this rule exists"
+  impact:
+    token_saving: "15%"
+    error_prevention: true
+  status: active|deprecated|archived
+  examples:
+    good: "Example of correct usage"
+    bad: "Example of incorrect usage"
+```
+
+### Creation Workflow
+
+**Step 1: Draft Rule**
+Prepare rule in YAML format following template above.
+
+**Step 2: Safety Checks**
 ```markdown
-## 对话优化历史
-
-### 日期：{date}
-
-#### 评估结果
-- 效率评分：{score}/100
-- 主要问题：{issues}
-- 改进措施：{improvements}
-
-#### 下次对话优化
-- {optimization_tip_1}
-- {optimization_tip_2}
-- {optimization_tip_3}
+□ Does this conflict with CLAUDE.md? (If yes → STOP)
+□ Does this conflict with existing rules? (If yes → MERGE)
+□ Is this specific and actionable? (If no → REFINE)
+□ Is the impact measurable? (If no → ADD METRICS)
 ```
+
+**Step 3: User Confirmation**
+```markdown
+I've identified a repeatable pattern worth codifying:
+
+[Rule YAML]
+
+Apply this rule to `.claude/rules/dynamic_rules.md`?
+Reply: "yes" to apply, "modify" to change, "no" to cancel.
+```
+
+**Step 4: Implementation**
+AFTER user confirmation:
+1. Read existing `.claude/rules/dynamic_rules.md`
+2. Append new rule (maintain YAML format)
+3. Do NOT modify other rules
+4. Confirm completion
+
+### Prohibited Actions
+
+🚫 **NEVER**:
+- Modify `CLAUDE.md`
+- Modify `.claude/skills/dialogue-optimizer/SKILL.md` (this file)
+- Delete existing rules (use status: deprecated instead)
+- Modify rule format (must use YAML template)
+- Create rules without user confirmation
+
+## Layer 4: Rule Lifecycle Management
+
+### Health Monitoring
+
+Check rule health when `.claude/rules/dynamic_rules.md` has ≥ 15 rules:
+
+**Metrics**:
+```markdown
+Current rules: [count]
+Active rules: [count]
+Deprecated rules: [count]
+Avg. token saving: [average%]
+```
+
+**Decision Tree**:
+```
+If total_rules ≥ 20:
+  → Execute merge protocol
+
+If deprecated_rules ≥ 5:
+  → Execute archive protocol
+```
+
+### Merge Protocol
+
+1. **Identify Similar Rules** - Consolidate redundant rules
+2. **Update Merged Rules** - Set status: deprecated
+3. **Confirm with User** - Get approval before merging
+
+### Archive Protocol
+
+1. **Move Deprecated Rules** - Copy to `.claude/rules/archived_rules.md`
+2. **Maintain History** - Add archive_date and archive_reason
+3. **Remove from Active** - Clean up dynamic_rules.md
+
+## Optional Reading (按需加载)
+
+如需深入了解设计原理，可读取：
+- `.claude/skills/dialogue-optimizer/references/first-principles-summary.md` - 核心设计理念
+- `.claude/skills/dialogue-optimizer/references/evolution-mechanism.md` - 进化机制详解
+
+历史版本归档在 `archive/dialogue-optimizer-v3.2.md`
 
 ---
 
-## 优化策略库
-
-### 策略1：减少冗余输出
-
-```
-问题：重复解释相同概念
-优化：
-✓ 使用"同上"、"类似地"等引用
-✓ 使用表格对比不同选项
-✓ 避免重复背景介绍
-
-示例：
-❌ 不好：多次重复"AI是指..."
-✅ 好：首次解释后，后续使用"如前所述"
-```
-
-### 策略2：结构化优先
-
-```
-问题：纯文字描述效率低
-优化：
-✓ 优先使用表格
-✓ 使用列表替代段落
-✓ 使用代码块展示示例
-✓ 使用链接引用详细内容
-
-示例：
-❌ 不好：用3段文字描述5个配置选项
-✓ 好：用1个表格展示5个配置选项
-```
-
-### 策略3：工具调用优化
-
-```
-问题：工具调用低效
-优化：
-✓ 并行调用独立工具
-✓ 使用Grep而非Read查找
-✓ 使用Task工具处理复杂搜索
-✓ 一次Read读取多个小文件
-
-示例：
-❌ 不好：
-  Read file1 → Read file2 → Read file3
-
-✓ 好：
-  如果文件独立，并行调用
-  或使用Glob批量查找
-```
-
-### 策略4：精准定位
-
-```
-问题：读取整个文件
-优化：
-✓ 使用Grep搜索关键词
-✓ 使用Read的offset/limit
-✓ 使用Glob模式匹配
-
-示例：
-❌ 不好：Read整个10000行文件
-✓ 好：Grep搜索关键词，Read相关部分
-```
-
-### 策略5：链接引用
-
-```
-问题：冗长解释已有概念
-优化：
-✓ 提供文档链接
-✓ 引用之前的对话
-✓ 使用"参考X文档"
-
-示例：
-❌ 不好：详细解释MCP协议（500字）
-✓ 好：参考[MCP协议文档](link)（10字）
-```
-
----
-
-## 自动改进建议生成
-
-基于评估结果，自动生成改进建议：
-
-### 场景1：Token使用过多
-
-```markdown
-## 🚨 优化建议：减少Token消耗
-
-检测结果：
-- 输出token：{high_tokens}
-- 输出/输入比：{low_ratio}
-
-改进措施：
-1. 使用表格替代列表
-2. 减少重复说明
-3. 引用已有文档
-4. 代码示例精简
-
-预期改进：
-- 节省token：30-40%
-- 保持质量：不变
-```
-
-### 场景2：信息密度低
-
-```markdown
-## 📈 优化建议：提高信息密度
-
-检测结果：
-- 实质内容占比：{low_density}%
-- 冗余说明占比：{high_redundancy}%
-
-改进措施：
-1. 删除客套话
-2. 精简示例说明
-3. 结构化输出
-4. 突出关键信息
-
-预期改进：
-- 信息密度：+40%
-- 可读性：+20%
-```
-
-### 场景3：工具调用低效
-
-```markdown
-## ⚡ 优化建议：提升工具效率
-
-检测结果：
-- 工具调用：{many_calls}次
-- 可并行率：{low_parallel}%
-
-改进措施：
-1. 识别可并行的工具调用
-2. 使用Grep替代Read搜索
-3. 批量处理文件
-4. 减少冗余调用
-
-预期改进：
-- 调用次数：-40%
-- 响应速度：+50%
-```
-
----
-
-## 持续优化机制
-
-### 自动更新优化策略
-
-```python
-# 每次对话后更新
-def update_optimization_strategy(dialogue_stats):
-    # 分析本次对话
-    efficiency = calculate_efficiency(dialogue_stats)
-
-    # 识别问题
-    issues = detect_issues(dialogue_stats)
-
-    # 生成优化建议
-    tips = generate_optimization_tips(issues)
-
-    # 更新优化记录
-    update_optimization_log({
-        "date": now(),
-        "efficiency_score": efficiency,
-        "issues": issues,
-        "optimization_tips": tips
-    })
-
-    # 应用到下次对话
-    apply_tips_to_next_dialogue(tips)
-```
-
----
-
-## 自动规则更新机制 (v2.0)
-
-### 核心原理
-
-当优化建议满足特定条件时，自动更新到对应的规则文件中，实现从"评估"到"应用"的闭环。
-
-**执行方式**：AI在对话结束时模拟执行逻辑，使用Read/Write/Edit工具更新文件
-
-### 三层过滤系统
-
-#### Level 1: 用户明确要求（最高优先级）
-
-**触发条件**：
-- 用户说"以后都要..."
-- 用户说"记住这个..."
-- 用户明确强调某个问题
-
-**示例**：
-```markdown
-用户: "这次报告太长了，以后都用要点列表，不要表格"
-
-判断结果：
-- is_explicit_request = True
-- action_path = "MAJOR_UPDATE"
-- 立即写入规则文件
-```
-
-#### Level 2: 频率触发（反复出现）
-
-**触发条件**：
-- 同类问题出现≥3次
-- 时间跨度≤7天
-- 问题模式匹配度≥80%
-
-**示例**：
-```markdown
-问题追踪：
-- 2026-01-14: 网页搜索失败，未使用fallback
-- 2026-01-15: 网页搜索失败，未使用fallback
-- 2026-01-16: 网页搜索失败，未使用fallback
-
-判断结果：
-- occurrence_count = 3
-- action_path = "MAJOR_UPDATE"
-- 升级为规则
-```
-
-#### Level 3: 通用性过滤（跨对话适用）
-
-**触发条件**：
-- 建议具有普遍适用性
-- 不依赖特定上下文
-- 可以独立存在
-
-**通用性判断**：
-| 建议 | 是否通用 | 理由 |
-|------|---------|------|
-| "使用要点列表" | ✅ 是 | 适用于多选项场景 |
-| "优化Python脚本" | ❌ 否 | 特定于某次对话 |
-| "网页搜索用fallback" | ✅ 是 | 适用于所有搜索 |
-| "减少客套话" | ✅ 是 | 适用于所有回复 |
-
-### Token优化：Pre-Check协议
-
-**Phase 1: 轻量级预检（0 Token）**
-
-在对话结束时，AI模拟执行以下逻辑：
-
-```
-问题识别 → 建议分类 → 判断是否值得写入
-    ↓
-排除标准（任何一条满足则只记录日志）：
-├─ impact_score < 20%
-├─ 任务特定问题
-└─ 首次出现且用户未要求
-    ↓
-通过标准（任何一条满足则升级为规则）：
-├─ 用户明确要求
-├─ 出现次数 ≥ 3
-└─ impact_score > 30% 且通用
-```
-
-**Phase 2: 执行（按需读取）**
-
-```
-action_path == "MAJOR_UPDATE"
-    ↓
-1. Router: 选择目标文件
-   ├─ Communication → rules/dialogue-communication-rules.md
-   ├─ Workflow → instructions.md
-   └─ File Organization → rules/file-organization.md
-    ↓
-2. Fetch: 读取目标文件（只读1个文件）
-    ↓
-3. Check: 冲突检测
-    ↓
-4. Update: 更新文件
-    ↓
-5. Notify: 通知用户
-```
-
-### 自动分类路由
-
-```
-优化建议分析
-    ↓
-┌────────────────────────────────┐
-│  是操作流程？                   │
-│  ├─ 定义"如何执行任务"         │
-│  └─ YES → instructions.md     │
-└────────────────────────────────┘
-    ↓ NO
-┌────────────────────────────────┐
-│  是行为规范？                   │
-│  ├─ 定义"如何表达/沟通"        │
-│  └─ YES → rules/dialogue-communication-rules.md │
-└────────────────────────────────┘
-    ↓ NO
-┌────────────────────────────────┐
-│  是领域规则？                   │
-│  ├─ 文件组织                   │
-│  └─ YES → rules/file-organization.md │
-└────────────────────────────────┘
-    ↓ NO
-记录到待审核日志
-```
-
-### 实施检查清单
-
-**对话结束时**：
-```
-□ 统计token使用
-□ 计算效率指标
-□ 识别优化点
-□ 执行Pre-Check（轻量级预检）
-□ 判断action_path
-  ├─ MINOR_LOGGING → 只记录或忽略
-  └─ MAJOR_UPDATE → 执行Phase 2
-    ├─ 确定目标文件
-    ├─ Read工具读取文件
-    ├─ 冲突检测
-    ├─ Write/Edit工具更新
-    └─ 通知用户
-□ 清理临时文件
-□ 检查规则文档存在性
-```
-
-### 规则更新模板
-
-#### instructions.md 规则格式
-
-```markdown
-### {规则标题}（{添加日期}）
-
-**来源**: {auto_detected / user_explicit / frequency_trigger}
-**原因**: {为什么需要这个规则}
-**适用场景**: {规则适用的场景}
-**优先级**: {high / medium / low}
-
-**规则内容**:
-{具体的规则内容}
-
-**实施方式**:
-- {步骤1}
-- {步骤2}
-- {步骤3}
-
-**示例**:
-```markdown
-{正面示例}
-```
-
-❌ 避免这样做:
-```markdown
-{反面示例}
-```
-```
-
-#### dialogue-communication-rules.md 规则格式
-
-```markdown
-### {规则标题}（{添加日期}）
-
-**来源**: {来源说明}
-**改进目标**: {Token效率 / 信息密度 / 可读性}
-**适用场景**: {规则适用场景}
-
-✅ **这样做**:
-- {正确做法1}
-- {正确做法2}
-
-❌ **不要这样做**:
-- {错误做法1}
-- {错误做法2}
-
-**预期效果**:
-- {效果1}
-- {效果2}
-
-**历史记录**:
-- {添加日期}: 添加此规则
-- {更新日期}: 更新此规则
-```
-
----
-
-### 优化建议优先级
-
-```
-🔴 高优先级（立即应用）：
-- 减少重复输出
-- 优化工具调用
-- 结构化输出
-
-🟡 中优先级（下次应用）：
-- 精简示例代码
-- 使用引用链接
-- 优化提示词
-
-🟢 低优先级（长期优化）：
-- 学习用户偏好
-- 优化常用模式
-- 建立模板库
-```
-
----
-
-## 快速评估模板
-
-每次对话结束时，快速填写：
-
-```markdown
-## 对话效率快照
-
-### 基本信息
-- 对话主题：{topic}
-- 总轮次：{rounds}
-- 总token：{total_tokens}
-- 输出效率：{efficiency_score}/100
-
-### 效率指标
-| 指标 | 得分 | 目标 | 状态 |
-|------|------|------|------|
-| Token使用 | {token_score} | > 80 | {status} |
-| 信息密度 | {density_score} | > 70 | {status} |
-| 首次准确 | {accuracy_score} | > 90 | {status} |
-| 工具效率 | {tool_score} | > 85 | {status} |
-
-### 改进建议（优先级排序）
-1. {tip_1} - 预期改进：{improvement_1}
-2. {tip_2} - 预期改进：{improvement_2}
-3. {tip_3} - 预期改进：{improvement_3}
-
-### 下次对话应用
-✓ {action_1}
-✓ {action_2}
-✓ {action_3}
-```
-
----
-
-## 实施检查清单
-
-### 对话进行中
-
-```
-□ 使用结构化输出（表格/列表）
-□ 避免重复解释
-□ 优先使用工具而非描述
-□ 精简示例代码
-□ 引用已有文档
-□ 优先使用要点列表替代详细表格（提高token效率）
-□ 减少客套话，直接回答（提高信息密度）
-```
-
-### 工具调用时
-
-```
-□ 识别可并行的调用
-□ 使用Grep搜索关键词
-□ 批量处理同类任务
-□ 避免冗余调用
-□ 选择最合适的工具
-```
-
-### 对话结束时
-
-```
-□ 统计token使用
-□ 计算效率指标
-□ 识别优化点
-□ 生成改进建议
-□ 更新优化记录
-□ 清理临时文件
-□ 检查规则文档
-```
-
----
-
-## 对话结束清理和检查
-
-### 清理临时文件
-
-对话结束后自动清理临时文件，保持目录整洁：
-
-```powershell
-# 清理策略
-1. 删除所有CSV文件（分析结果）
-2. 删除其他临时文件（非.py文件）
-3. 保留最近1天的Python脚本
-4. 保留.claude-temp目录本身
-
-# 临时文件位置
-D:\cursor\file\.claude-temp\
-```
-
-**自动执行**：
-- 对话结束后自动检查`.claude-temp\`目录
-- 删除不需要的临时文件
-- 不显示任何清理提示
-- 记录清理日志到`.claude-temp\hook-log.txt`
-
-### 检查规则文档
-
-对话结束后检查相关规则文档是否存在：
-
-```powershell
-# 检查的文档
-1. D:\cursor\file\.claude\rules\dialogue-review-and-auto-update.md
-   - 用于记录对话历史
-   - 用于更新新规则和用户偏好
-
-2. D:\cursor\file\.claude\rules\file-organization.md
-   - 确保文件组织规则一致
-   - 指导文档存放位置
-```
-
-**自动执行**：
-- 验证规则文档存在
-- 如不存在，提醒用户创建或恢复
-- 记录检查结果到优化报告中
-
----
-
-## 示例：优化前后对比
-
-### 优化前（低效）
-
-```markdown
-我需要帮你查询文档。让我先使用Glob工具查找所有markdown文件，然后使用Read工具读取每个文件的内容，最后给你一个总结。
-
-工具调用1：Glob *.md
-工具调用2：Read file1.md
-工具调用3：Read file2.md
-工具调用4：Read file3.md
-
-根据我读取的内容，file1.md包含了关于...（500字描述）
-file2.md包含了关于...（500字描述）
-file3.md包含了关于...（500字描述）
-
-总结来说，这三个文件分别讲了...
-
-总token：3500
-```
-
-### 优化后（高效）
-
-```markdown
-使用Glob和Read快速查询文档：
-
-并行调用：
-1. Glob **/*.md
-2. Grep "关键词" *.md
-3. Read file1.md, file2.md, file3.md（并行）
-
-文档概览：
-| 文件 | 主题 | 关键点 |
-|------|------|--------|
-| file1.md | XXX | ... |
-| file2.md | XXX | ... |
-| file3.md | XXX | ... |
-
-总token：800（节省77%）
-```
-
----
-
-## 长期优化目标
-
-```
-短期（1周内）：
-- 减少重复输出30%
-- 提高工具并行率到50%
-- 使用结构化输出80%以上
-
-中期（1月内）：
-- 建立常用模板库
-- 优化常用对话模式
-- token效率提升40%
-
-长期（持续）：
-- 持续学习最优实践
-- 适应不同用户偏好
-- 建立个性化优化策略
-```
-
----
-
-## 自动应用机制
-
-### 技能集成
-
-这个skill应该：
-1. 自动加载到system prompt
-2. 每次对话结束时自动触发
-3. 生成评估报告
-4. 应用到下次对话
-
-### 提醒方式
-
-```markdown
-🤖 自动评估已运行：
-- 本次对话效率：{score}/100
-- 发现{count}个优化点
-- 下次对话将自动应用{number}项改进
-
-详细报告：{report_link}
-```
-
----
-
-## 监控指标
-
-持续跟踪的指标：
-
-```
-平均效率得分：
-- 第1周：60/100
-- 第2周：70/100
-- 第3周：78/100
-- 第4周：85/100
-- 目标：> 90/100
-
-Token节省率：
-- 第1周：15%
-- 第2周：25%
-- 第4周：35%
-- 目标：> 40%
-
-用户满意度：
-- 首次准确率提升
-- 追问次数减少
-- 完成时间缩短
-```
-
----
-
-## 总结
-
-**核心理念**：
-> 每次对话都是学习和优化的机会
-
-**自动执行**：
-> 对话结束时自动评估，无需用户提醒
-
-**持续改进**：
-> 基于数据驱动，持续优化对话策略
-
-**最终目标**：
-> 用最少的token，提供最大的价值
-
----
-
-**技能版本**：v1.0
-**创建日期**：2026-01-13
-**更新频率**：每次对话后
-**自动触发**：是
+**Version**: Runtime V3.4 Wise (Ultra-Lean)
+**Last Updated**: 2026-01-17
+**Auto-Trigger**: Every conversation end
