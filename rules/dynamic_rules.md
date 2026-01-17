@@ -22,11 +22,27 @@
   examples:
     good: "明白，会用中文回复所有内容"
     bad: "Understood, will reply in Chinese"
+
+- id: DR-002
+  created: 2026-01-17
+  frequency: 1
+  category: tool_usage
+  title: "优先MCP工具并自动切换"
+  content: "优先使用MCP工具（如mcp__github__*），失败后自动切换到其他工具，不要只报告失败"
+  rationale: "用户指出git push失败后，我有mcp__github__push_files工具但没有使用。要求'优先使用MCP工具，学会切换工具再次尝试'"
+  impact:
+    token_saving: "0%"
+    reliability: high
+    priority: highest
+  status: active
+  examples:
+    good: "git push失败 → 自动切换到mcp__github__push_files → 完成"
+    bad: "git push失败 → 报告'推送失败'，等待用户指示"
 ```
 
 ## Rule Statistics
-- Total rules: 1
-- Active: 1
+- Total rules: 2
+- Active: 2
 - Deprecated: 0
 - Last updated: 2026-01-17
 - Next merge check: At 20 rules
