@@ -17,20 +17,19 @@
 
 ---
 
-## 🎭 8个专用Agent定义
+## 🎭 7个专用Agent定义（开发流水线）
 
 ### Agent识别表
 
-| 用户意图关键词 | 自动选择Agent | 阶段 |
-|--------------|--------------|------|
-| 需求分析/PRD/用户故事/功能定义/产品需求 | **product-agent** | 阶段1 |
-| 架构设计/技术栈/系统设计/API设计/数据库设计 | **architect-agent** | 阶段2 |
-| 后端开发/API实现/数据库/服务端/Node.js/Python | **backend-agent** | 阶段3a |
-| 前端开发/UI/组件/界面/React/Vue/页面 | **frontend-agent** | 阶段3b |
-| 集成/联调/docker-compose/环境配置/前后端集成 | **integration-agent** | 阶段3c |
-| 测试/验证/QA/质量检查/测试用例 | **qa-agent** | 阶段4 |
-| 部署/上线/Dockerfile/运维/CI-CD/发布 | **devops-agent** | 阶段5 |
-| 安全审计/红队检测/漏洞扫描/安全检查 | **red-team-agent** | 安全审计 |
+| 用户意图关键词 | 自动选择Agent | 阶段 | 职责说明 |
+|--------------|--------------|------|----------|
+| 需求分析/PRD/用户故事/功能定义/产品需求 | **product-agent** | 阶段1 | 需求分析、PRD撰写 |
+| 架构设计/技术栈/系统设计/API设计/数据库设计 | **architect-agent** | 阶段2 | 架构设计、技术选型 |
+| 后端开发/API实现/数据库/服务端/Node.js/Python | **backend-agent** | 阶段3a | 后端开发、API实现 |
+| 前端开发/UI/组件/界面/React/Vue/页面 | **frontend-agent** | 阶段3b | 前端开发、UI实现 |
+| **代码审查/找漏洞/性能优化/QA验证/集成检查** | **code-reviewer-agent** | 阶段3c | **质量+安全+性能+优化建议** |
+| 文档编写/API说明/使用指南 | **docs-agent** | 阶段4 | 文档编写、维护手册 |
+| 部署/上线/Dockerfile/运维/CI-CD/发布 | **devops-agent** | 阶段5 | 部署运维、CI/CD |
 
 ### 工作流程模板
 
@@ -82,70 +81,6 @@
 **等待你的指令...**
 ---
 ```
-
----
-
-## 🛡️ 安全红队系统
-
-### 自动介入机制
-在以下关键阶段完成后，**自动触发**红队审计：
-
-1. **阶段2后**：架构设计安全性审计
-2. **阶段3后**：代码安全性审计
-3. **阶段5后**：部署安全性审计
-
-### 审计输出格式
-
-```markdown
----
-🛡️ **安全审计报告 - [阶段]**
-
-**审计范围**：[范围描述]
-**审计时间**：[时间戳]
-
-### 📊 安全评分
-- 架构安全：X/10
-- 代码安全：X/10
-- 部署安全：X/10
-
-### 🔴 高危问题 [数量]
-1. **[问题标题]**
-   - 位置：`[文件路径]:[行号]`
-   - 风险：[风险描述]
-   - 修复：`[具体修复方案]`
-
-### 🟡 中危问题 [数量]
-...
-
-### 🟢 低危问题 [数量]
-...
-
-### 📝 修复优先级
-1. [立即修复]
-2. [本周修复]
-3. [延后处理]
-
-### Artifacts
-- .artifacts/security/[phase]-security-report.md
-- .artifacts/security/vulnerability-list.md
-
-**是否继续？**（或先修复安全问题）
----
-```
-
-### 严重问题处理
-
-**🔴 高危问题**：
-1. 立即停止工作流
-2. 详细说明问题和修复方案
-3. 等待用户确认修复后再继续
-4. 修复后重新审计
-
-**🟡/🟢 问题**：
-1. 记录在报告中
-2. 建议修复优先级
-3. 可以继续下一阶段
-4. 在后续阶段中修复
 
 ---
 
@@ -313,19 +248,18 @@ fi
 - **输出**: frontend-code/, component-catalog.md, component-tests/
 - **TDD要求**: 组件测试，主要交互覆盖
 
-#### 3c. 集成调试
-- **Agent**: integration-agent
+#### 3c. 代码审查与优化
+- **Agent**: code-reviewer-agent
 - **协议**: **Two-Stage Code Review**（必须）、Systematic Debugging
-- **输出**: docker-compose.yml, integration-report.md
-- **Code Review**: 阶段1（规范性）+ 阶段2（代码质量）
-- **验收**: 功能正常、集成无问题、代码审查通过
-- **红队**: ✅ 代码安全审计
+- **职责**: **代码质量审查 + 安全漏洞检测 + 性能优化建议 + QA验证 + 集成检查**
+- **输出**: code-review-report.md, security-audit.md, optimization-suggestions.md
+- **Code Review**: 阶段1（规范性）+ 阶段2（代码质量+安全+性能）
+- **验收**: 代码质量达标、无严重漏洞、性能优化建议已提供
 
-### 阶段4：测试验证
-- **Agent**: qa-agent
-- **输出**: test-plan.md, test-report.md
-- **验收**: 核心功能通过、无严重bug
-- **红队**: ✅ 测试覆盖审计
+### 阶段4：文档编写
+- **Agent**: docs-agent
+- **输出**: README.md, API.md, deployment-guide.md
+- **验收**: 文档完整、可读性强
 
 ### 阶段5：部署上线
 - **Agent**: devops-agent
@@ -345,7 +279,7 @@ fi
 |------|-------|---------|--------|
 | **TDD Protocol** | ⭐⭐⭐⭐⭐ | 阶段3a（必须）、3b（建议） | backend-agent强制 |
 | **Systematic Debugging** | ⭐⭐⭐⭐ | 所有阶段 | 出现bug时必须 |
-| **Two-Stage Code Review** | ⭐⭐⭐⭐ | 阶段3c完成时 | integration-agent强制 |
+| **Two-Stage Code Review** | ⭐⭐⭐⭐ | 阶段3c完成时 | code-reviewer-agent强制 |
 
 ---
 
@@ -493,14 +427,14 @@ app.post('/api/users', async (req, res) => {
 
 ```
 ✅ 触发时机：
-- 阶段3a完成后 → backend-agent自查 + integration-agent审查
-- 阶段3b完成后 → frontend-agent自查 + integration-agent审查
-- 阶段3c完成后 → 完整两阶段审查（进入qa-agent前必须）
+- 阶段3a完成后 → backend-agent自查 + code-reviewer-agent审查
+- 阶段3b完成后 → frontend-agent自查 + code-reviewer-agent审查
+- 阶段3c完成后 → 完整两阶段审查（进入docs-agent前必须）
 ```
 
 #### 阶段1：规范符合性检查
 
-**审查者**: architect-agent、integration-agent
+**审查者**: architect-agent、code-reviewer-agent
 
 **检查清单**:
 ```
@@ -516,18 +450,20 @@ app.post('/api/users', async (req, res) => {
 
 #### 阶段2：代码质量评估
 
-**审查者**: backend-agent、frontend-agent、red-team-agent
+**审查者**: backend-agent、frontend-agent、code-reviewer-agent（主导）
 
 **检查清单**:
 ```
 □ 可读性（命名清晰、结构合理）
 □ 性能（无N+1查询、有索引）
+□ 安全性（输入验证、防注入、漏洞扫描）
+□ 可维护性（单一职责、测试覆盖）
 □ 安全性（输入验证、防注入）
 □ 可维护性（单一职责、测试覆盖）
 ```
 
 **审查结果**:
-- ✅ 通过 → 进入qa-agent测试
+- ✅ 通过 → 进入docs-agent文档编写
 - ⚠️ 有建议 → 可以合并，但创建优化任务
 - ❌ 不通过 → 必须修改，重新审查
 
@@ -623,17 +559,16 @@ Timestamp: YYYY-MM-DD HH:MM:SS
 
 ### Agent识别速查
 ```
-用户说           → Agent自动选择
-─────────────────────────────────
-"分析需求"       → product-agent
-"设计架构"       → architect-agent
-"实现后端"       → backend-agent + TDD
-"实现前端"       → frontend-agent + TDD（建议）
-"集成调试"       → integration-agent + Code Review
-"测试验证"       → qa-agent
-"部署上线"       → devops-agent
-"安全审计"       → red-team-agent
-"调试bug"        → Systematic Debugging
+用户说                      → Agent自动选择
+──────────────────────────────────────────────
+"分析需求"                  → product-agent
+"设计架构"                  → architect-agent
+"实现后端"                  → backend-agent + TDD
+"实现前端"                  → frontend-agent + TDD（建议）
+"代码审查/找漏洞/性能优化"   → code-reviewer-agent + Code Review
+"编写文档"                  → docs-agent
+"部署上线"                  → devops-agent
+"调试bug"                   → Systematic Debugging
 ```
 
 ### 协议速查
