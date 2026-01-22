@@ -176,6 +176,41 @@ AFTER user confirmation:
 3. Do NOT modify other rules
 4. Confirm completion
 
+**Step 5: Global Applicability Assessment (CRITICAL)**
+
+在提议新规则时，必须评估其全局适用性和综合收益：
+
+```markdown
+### 全局适用性评估
+- 适用范围: [所有对话/特定场景]
+- 跨场景价值: [高/中/低]
+
+### 综合收益评估
+- token_saving: [X%] ✓/✗
+- time_saving: [X%] ✓/✗
+- error_prevention: [level] ✓/✗
+- user_satisfaction: [level] ✓/✗
+- performance: [level] ✓/✗
+
+### 加入CLAUDE.md建议
+- ✅ 值得加入（全局适用 + 综合收益好）
+- ❌ 不建议加入（仅特定场景或收益不足）
+
+[如果是✅，询问用户是否同时加入CLAUDE.md]
+```
+
+**加入CLAUDE.md的门槛**（用户明确要求）:
+- ✅ 全局适用 + 综合收益好 → 加入CLAUDE.md
+- ❌ 只适用于特定场景 → 仅保留在dynamic_rules.md
+
+**示例**:
+```
+DR-017评估结果：
+- 全局适用性: ✅ 适用于所有对话类型
+- 综合收益: time_saving=66% ✓, performance=critical ✓
+- 结论: ✅ 值得加入CLAUDE.md
+```
+
 ### Prohibited Actions
 
 🚫 **NEVER**:

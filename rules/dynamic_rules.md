@@ -220,11 +220,28 @@
   examples:
     good: "用户：评估本次对话 → AI：调用dialogue-optimizer Full Assessment"
     bad: "用户：评估本次对话 → AI：你要我评估什么？代码？文档？还是整体？"
+
+- id: DR-017
+  created: 2026-01-22
+  frequency: 3
+  category: efficiency
+  title: "多文件读取必须并行"
+  content: "当需要读取多个文件时，必须使用Glob+并行Read，而非串行读取。7个文件串行读取=7t，并行读取=2.3t，节省66%时间。"
+  rationale: "本次对话读取7个agent文件时串行执行，浪费了66%时间。Glob工具可快速定位文件，Read工具支持并行调用。"
+  impact:
+    token_saving: "0%"
+    time_saving: "66%"
+    performance: critical
+  priority: high
+  status: active
+  examples:
+    good: "Glob('agents/*.prompt.md') → Read(product, architect, frontend) 同时读取3个文件"
+    bad: "Read('product.prompt.md') → Read('architect.prompt.md') → Read('frontend.prompt.md') 串行3次"
 ```
 
 ## Rule Statistics
-- Total rules: 13
-- Active: 13
+- Total rules: 14
+- Active: 14
 - Deprecated: 0
 - Last updated: 2026-01-22
 - Next merge check: At 20 rules
