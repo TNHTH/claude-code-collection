@@ -19,7 +19,8 @@
       "Skill(dialogue-optimizer)",
       "Skill(file-organizer)",
       "Skill(kaizen)",
-      "mcp__github__search_repositories"
+      "mcp__github__search_repositories",
+      "mcp__github__push_files"
     ]
   },
   "autoConfirm": true

@@ -174,9 +174,42 @@
     good: "用户：我理想型是什么样的？\nAI：你提到喜欢'好看+不脾气大+关系好'的女生。我们可以慢慢探索：①你之前遇到过的女生中，谁让你觉得最舒服？为什么？②你和朋友相处时，什么样的相处模式让你觉得开心？③你绝对不能接受什么样的行为？"
     bad: "用户：我理想型是什么样的？\nAI：你的理想型是ESFJ。王佳楼80%符合你的理想型。你应该去找ESFJ类型的女生。（用户只提供了少量信息，AI就给出了绝对判断）"
 
+- id: DR-011
+  created: 2026-01-22
+  frequency: 1
+  category: efficiency
+  title: "方案设计先给列表，确认后再详细"
+  content: "当用户要求'分析哪些可以优化/添加'时，先给简洁列表（不超过1KB），询问用户'哪些你觉得有用？'，等用户确认后再详细设计。禁止直接创建详细方案。"
+  rationale: "本次对话创建17KB详细方案，但用户只需要'看看有什么'，浪费15KB token。应该先给简洁列表（<1KB），确认用户需求后再详细设计。"
+  impact:
+    token_saving: "85-95%"
+    user_satisfaction: high
+  priority: high
+  status: active
+  examples:
+    good: "用户：分析哪些可以优化？\nAI：我发现可添加X/Y/Z（简洁列表<1KB），你觉得哪些有用？"
+    bad: "用户：分析哪些可以优化？\nAI：创建17KB详细方案，包含完整代码示例和文件内容"
+
+- id: DR-012
+  created: 2026-01-22
+  frequency: 1
+  category: documentation
+  title: "文档时间戳包含时分秒"
+  content: "所有创建的文档必须包含完整时间戳（YYYY-MM-DD HH:MM:SS），格式：'创建时间: 2026-01-22 14:30:00'。只用日期（2026-01-22）是不够的。"
+  rationale: "用户明确指出文档只有日期无法分辨修改先后，需要精确到秒的时间戳。"
+  impact:
+    clarity: critical
+    version_control: high
+  priority: high
+  status: active
+  examples:
+    good: "> **创建时间**: 2026-01-22 14:30:00"
+    bad: "> **日期**: 2026-01-22"
+```
+
 ## Rule Statistics
-- Total rules: 10
-- Active: 10
+- Total rules: 12
+- Active: 12
 - Deprecated: 0
-- Last updated: 2026-01-20
+- Last updated: 2026-01-22
 - Next merge check: At 20 rules
