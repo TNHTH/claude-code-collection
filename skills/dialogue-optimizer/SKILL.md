@@ -255,6 +255,129 @@ If deprecated_rules ≥ 5:
 2. **Maintain History** - Add archive_date and archive_reason
 3. **Remove from Active** - Clean up dynamic_rules.md
 
+---
+
+## Layer 5-6: 扩展评估协议（按需加载）
+
+### 评估能力概览
+
+dialogue-optimizer V5.0提供三个扩展评估协议：
+
+- **Layer 5**: Agent评估与优化协议
+  - 触发检测（Agent是否按预期自动触发）
+  - 输出质量评估（场景理解、务实性、语言特性）
+  - **Token消耗评估**（输入/输出/性价比计算）
+  - 错误模式识别（模板驱动、过度设计、教条主义）
+  - 自动更新Agent功能
+
+- **Layer 6**: Skill评估与优化协议
+  - 触发与调用检测（调用方式、Skill vs Agent判断）
+  - 功能完整性评估（核心功能、边界处理、文档质量）
+  - **Token消耗评估**（性价比对比、优化建议）
+  - 输出质量评估（准确性、完整性、可执行性）
+  - 自动更新Skill功能
+
+- **Layer 7**: 系统整体健康评估协议（新增）
+  - **系统Token消耗总览**（Agent/Skill平均消耗、性价比对比）
+  - Agent/Skill/Trigger/规则/协作五维度评估
+  - 自测试用例（验证评估准确性）
+  - **Token趋势分析**（持续改进追踪）
+
+### 使用方式
+
+```bash
+# 评估Agent
+用户：评估Code-Reviewer Agent
+自动触发：Read layer5-agent-assessment.md → 执行Layer 5协议
+输出：性能评分 + Token消耗 + 性价比 + 优化建议
+
+# 评估Skill
+用户：评估brainstorming skill
+自动触发：Read layer6-skill-assessment.md → 执行Layer 6协议
+输出：综合评分 + Token消耗 + 性价比 + 优化建议
+
+# 系统健康评估
+用户：评估整个系统 / 系统健康评估
+自动触发：Read layer7-system-health.md → 执行Layer 7协议
+输出：五维度评分 + Token总览 + 优化优先级 + 趋势分析
+
+# 自我评估
+用户：评估dialogue-optimizer skill
+自动触发：Read layer6-skill-assessment.md → 执行Layer 6协议
+输出：自我评分 + Token消耗 + 性价比
+```
+
+### 按需加载文件
+
+```yaml
+评估Agent时加载:
+  文件: layer5-agent-assessment.md
+  内容:
+    - Agent性能评估（触发检测、输出质量、错误识别）
+    - Agent优化建议（版本迭代、自动更新）
+    - Agent评估报告模板
+    - 自动化规则建议
+    - 评估后自动行动流程
+
+评估Skill时加载:
+  文件: layer6-skill-assessment.md
+  内容:
+    - Skill性能评估（触发检测、功能完整性、输出质量）
+    - Skill优化建议（功能缺失、文档改进、调用优化）
+    - Skill评估报告模板
+    - Skill生态系统评估
+    - 常见Skill问题诊断
+```
+
+### 触发条件
+
+**Layer 5自动触发**（满足任一）：
+1. 对话中使用了任何Agent
+2. 用户说"评估agent"、"分析agent"
+3. 检测到Agent触发失败或输出质量问题
+
+**Layer 6自动触发**（满足任一）：
+1. 对话中使用了任何Skill
+2. 用户说"评估skill"、"分析skill"
+3. 检测到Skill输出质量问题
+
+**Layer 7自动触发**（满足任一）：
+1. 用户说"系统健康评估"、"整体评估"、"全系统检查"
+2. 每月定期评估（建议每月1次）
+3. 系统重大更新后（Agent/Skill/规则大版本更新）
+4. 用户明确要求"评估整个系统"
+
+### 文档拆分原因
+
+```yaml
+拆分前（V4.0）:
+  文件大小: 974行
+  加载时间: 每次调用skill都加载完整文件
+  Token消耗: 约15K tokens
+
+拆分后（V5.0）:
+  核心文件: 369行（Layer 1-4）
+  Agent评估: 按需加载layer5-agent-assessment.md
+  Skill评估: 按需加载layer6-skill-assessment.md
+  系统评估: 按需加载layer7-system-health.md
+  Token节省: 评估Agent时节省约50%
+  新增能力: Token消耗与性价比评估
+```
+
+### 完整文档路径
+
+```
+.claude/skills/dialogue-optimizer/
+├── SKILL.md (核心: Layer 1-4, 369行)
+├── layer5-agent-assessment.md (Agent评估协议 + Token评估)
+├── layer6-skill-assessment.md (Skill评估协议 + Token评估)
+├── layer7-system-health.md (系统健康评估 + 自测试)
+└── archive/
+    └── dialogue-optimizer-v3.2.md (历史版本)
+```
+
+---
+
 ## Optional Reading (按需加载)
 
 如需深入了解设计原理，可读取：
@@ -265,6 +388,11 @@ If deprecated_rules ≥ 5:
 
 ---
 
-**Version**: Runtime V3.4 Wise (Ultra-Lean)
-**Last Updated**: 2026-01-17
-**Auto-Trigger**: Every conversation end
+**Version**: Runtime V5.0 Full-Ecosystem (全生态评估版)
+**Last Updated**: 2026-01-23
+**Auto-Trigger**: Every conversation end + Agent/Skill usage detected
+**New Features**:
+- Agent性能评估（Layer 5）+ Token消耗评估
+- Skill评估（Layer 6）+ Token消耗评估
+- 系统整体健康评估（Layer 7）+ Token趋势分析
+- 自测试用例（验证评估准确性）
