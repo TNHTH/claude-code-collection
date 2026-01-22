@@ -61,7 +61,7 @@
   category: accuracy
   title: "引用用户私人信息前必须验证来源"
   content: "引用用户的私人经历、日记内容、人名关系前，必须先用Grep/Glob工具验证信息确实存在于用户文件中。如果无法验证，则明确说明'我从之前对话中了解到...'或'我无法确认这个信息的来源'。"
-  rationale: "本次对话中'朱TT'引用来源错误，用户指出后才意识到未经验证。这是一个严重的准确性问题，会损害用户信任。"
+  rationale: "本次对话中人名引用来源错误，用户指出后才意识到未经验证。这是一个严重的准确性问题，会损害用户信任。"
   impact:
     token_saving: "5%"
     error_prevention: critical
@@ -69,8 +69,8 @@
     priority: highest
   status: active
   examples:
-    good: "引用前先用Grep搜索关键词，确认存在后再引用。例如：Grep('朱彤彤') → 找到日记 → 引用原文。"
-    bad: "基于记忆或之前对话历史直接引用，未验证当前文件库。例如：直接说'你在日记中说朱TT段位太高'，但实际文件中找不到这条内容。"
+    good: "引用前先用Grep搜索关键词，确认存在后再引用。例如：Grep('某人名') → 找到日记 → 引用原文。"
+    bad: "基于记忆或之前对话历史直接引用，未验证当前文件库。例如：直接说'你在日记中说某段位太高'，但实际文件中找不到这条内容。"
 
 - id: DR-005
   created: 2026-01-18
@@ -133,7 +133,7 @@
     automation: critical
     user_expectation: high
     design_quality: critical
-  priority: highest
+    priority: highest
   status: active
   examples:
     good: "用户需要心理分析 → 创建psychological-counselor.prompt.md（Agent）→ AI识别到心理问题时用Task工具主动调用 → 自动扫描用户数据 → 生成分析报告"
@@ -151,10 +151,10 @@
     context_continuity: critical
     user_experience: high
     data_persistence: critical
-  priority: highest
+    priority: highest
   status: active
   examples:
-    good: "王佳楼话题对话 → .claude-temp/王佳楼分析对话记录_20260119/对话记录_01.md → 每次对话后追加记录 → 压缩后可快速恢复"
+    good: "某话题对话 → .claude-temp/某话题对话记录_20260119/对话记录_01.md → 每次对话后追加记录 → 压缩后可快速恢复"
     bad: "长时间对话 → 上下文满了 → 被压缩 → 用户问'我们之前聊到哪了' → AI说'我也不知道' → 对话断裂"
 
 - id: DR-010
@@ -163,16 +163,16 @@
   category: accuracy
   title: "禁止武断下结论，必须基于充分证据"
   content: "在信息不足的情况下，禁止给出具体百分比、明确判断或绝对结论。当用户表示'不知道'、'不清楚'时，不要替用户做决定或给出标准答案，而是通过苏格拉底式提问帮助用户自己发现答案。对于需要判断的内容，必须说明'基于有限信息'、'可能'、'需要更多信息'。"
-  rationale: "用户指出在分析王佳楼符合度时直接给出'80%符合'的结论太武断。用户明确表示'我也不知道我喜欢什么性格的女生'，但AI却直接判断理想型是ESFJ/ENFJ。用户三次强调'不要武断下结论'。"
+  rationale: "用户指出在分析某人符合度时直接给出'80%符合'的结论太武断。用户明确表示'我也不知道我喜欢什么性格的女生'，但AI却直接判断理想型是ESFJ/ENFJ。用户三次强调'不要武断下结论'。"
   impact:
     accuracy: critical
     user_trust: critical
     analysis_quality: high
-  priority: highest
+    priority: highest
   status: active
   examples:
     good: "用户：我理想型是什么样的？\nAI：你提到喜欢'好看+不脾气大+关系好'的女生。我们可以慢慢探索：①你之前遇到过的女生中，谁让你觉得最舒服？为什么？②你和朋友相处时，什么样的相处模式让你觉得开心？③你绝对不能接受什么样的行为？"
-    bad: "用户：我理想型是什么样的？\nAI：你的理想型是ESFJ。王佳楼80%符合你的理想型。你应该去找ESFJ类型的女生。（用户只提供了少量信息，AI就给出了绝对判断）"
+    bad: "用户：我理想型是什么样的？\nAI：你的理想型是ESFJ。某人80%符合你的理想型。你应该去找ESFJ类型的女生。（用户只提供了少量信息，AI就给出了绝对判断）"
 
 - id: DR-011
   created: 2026-01-22
@@ -184,7 +184,7 @@
   impact:
     token_saving: "85-95%"
     user_satisfaction: high
-  priority: high
+    priority: high
   status: active
   examples:
     good: "用户：分析哪些可以优化？\nAI：我发现可添加X/Y/Z（简洁列表<1KB），你觉得哪些有用？"
@@ -200,16 +200,31 @@
   impact:
     clarity: critical
     version_control: high
-  priority: high
+    priority: high
   status: active
   examples:
     good: "> **创建时间**: 2026-01-22 14:30:00"
     bad: "> **日期**: 2026-01-22"
+
+- id: DR-014
+  created: 2026-01-22
+  frequency: 1
+  category: user_preference
+  title: "评估关键词默认使用dialogue-optimizer"
+  content: "当用户说'评估'或'evaluate'时，默认调用dialogue-optimizer skill进行Full Assessment，不需要额外确认。"
+  rationale: "用户明确表示'以后我说评估都是dialogue-optimizer'，这是一个明确的偏好设置。"
+  impact:
+    efficiency: "20%"
+    user_satisfaction: high
+  status: active
+  examples:
+    good: "用户：评估本次对话 → AI：调用dialogue-optimizer Full Assessment"
+    bad: "用户：评估本次对话 → AI：你要我评估什么？代码？文档？还是整体？"
 ```
 
 ## Rule Statistics
-- Total rules: 12
-- Active: 12
+- Total rules: 13
+- Active: 13
 - Deprecated: 0
 - Last updated: 2026-01-22
 - Next merge check: At 20 rules
