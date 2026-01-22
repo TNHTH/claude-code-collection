@@ -138,7 +138,6 @@
   examples:
     good: "用户需要心理分析 → 创建psychological-counselor.prompt.md（Agent）→ AI识别到心理问题时用Task工具主动调用 → 自动扫描用户数据 → 生成分析报告"
     bad: "用户需要心理分析 → 创建analyze.json（Skill）→ 等待用户手动输入/analyze → 不会自动触发 → 用户困惑'为什么agent不会自动调用'"
-```
 
 - id: DR-009
   created: 2026-01-20
@@ -232,16 +231,36 @@
     token_saving: "0%"
     time_saving: "66%"
     performance: critical
-  priority: high
+    priority: high
   status: active
   examples:
     good: "Glob('agents/*.prompt.md') → Read(product, architect, frontend) 同时读取3个文件"
     bad: "Read('product.prompt.md') → Read('architect.prompt.md') → Read('frontend.prompt.md') 串行3次"
+
+- id: DR-018
+  created: 2026-01-23
+  frequency: 1
+  category: agent_system
+  title: "Trigger 1扩展为7-Agent独立触发系统"
+  content: "Trigger 1从单一'复杂项目开发模式'扩展为'智能开发Agent系统'，支持整体流水线触发和7个Agent单独触发。每个Agent有独立的关键词列表：Product（需求分析）、Architect（架构设计）、Backend（后端开发）、Frontend（前端开发）、Code-Reviewer（代码审查与优化）、Docs（文档编写）、DevOps（部署运维）。"
+  rationale: "用户说'分析优化'时没有触发Code-Reviewer Agent，原因是CLAUDE.md中缺少代码优化相关的Trigger。虽然存在code-reviewer.prompt.md，但没有对应的触发条件，违反了DR-015规则。"
+  impact:
+    automation: critical
+    user_experience: high
+    agent_coverage: complete
+    priority: highest
+  status: active
+  examples:
+    good: "用户说'分析优化' → AI识别触发Code-Reviewer Agent → Read code-reviewer.prompt.md → 执行代码分析"
+    good: "用户说'写需求' → AI识别触发Product Agent → Read product.prompt.md → 撰写PRD"
+    good: "用户说'新建项目' → AI触发整体流水线 → 按Phase 1-5顺序执行所有Agent"
+    bad: "用户说'分析优化' → AI使用general-purpose agent（不专业） → 没有调用code-reviewer"
+
 ```
 
 ## Rule Statistics
-- Total rules: 14
-- Active: 14
+- Total rules: 15
+- Active: 15
 - Deprecated: 0
-- Last updated: 2026-01-22
+- Last updated: 2026-01-23
 - Next merge check: At 20 rules
