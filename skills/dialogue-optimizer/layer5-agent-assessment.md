@@ -50,36 +50,17 @@
 ### 3. Token消耗与性价比评估
 
 ```yaml
-评估维度:
-  - 输入Token: 用户输入 + 上下文加载（代码文件、文档）
-  - 输出Token: AI生成的评估报告
-  - 总消耗: 输入 + 输出
-  - 功能价值: 输出质量（0-100分）
-  - 性价比: 功能价值 / Token消耗 × 100
+公式: 性价比 = 功能价值 / (Token消耗K)
+  # 即: 每千token产生多少功能分
 
-Token估算方法:
-  1. 输入Token: 读取文件大小（字节）/ 3 ≈ Token数
-  2. 输出Token: 评估报告字符数 / 4 ≈ Token数
-  3. 总消耗: 输入 + 输出
+评分: 🟢 >15 优秀 | 🟡 8-15 良好 | 🔴 <8 需优化
 
-评分标准:
-  - 🟢 高性价比: > 1.5（功能价值高，Token消耗低）
-  - 🟡 中性价比: 0.5-1.5（平衡）
-  - 🔴 低性价比: < 0.5（功能价值低或Token消耗高）
-
-示例：
-  Agent: Code-Reviewer
-  输入: 8K tokens (代码文件)
-  输出: 7K tokens (评估报告)
-  总消耗: 15K tokens
-  功能价值: 93.3分
-  性价比: 93.3 / 15000 × 100 = 0.62
-  评级: 🟡 中性价比
-
-  优化建议:
-  - 精简代码示例（引用替代重复）
-  - 删除冗余说明
-  - 目标: 15K → 10K (性价比0.62→0.93)
+示例:
+  | Agent | Token | 功能分 | 性价比 | 评级 |
+  |-------|-------|--------|--------|------|
+  | Code-Reviewer | 15K | 93 | 6.2 | 🔴 |
+  | Product | 5K | 85 | 17.0 | 🟢 |
+  | dialogue-optimizer | 5K | 94 | 18.8 | 🟢 |
 ```
 
 ### 4. 错误模式识别
@@ -163,7 +144,7 @@ Token估算方法:
 ### Agent基本信息
 - **名称**: Code-Reviewer
 - **版本**: V2.0 → V3.0
-- **文件**: multi-agent-system/agents/code-reviewer.prompt.md
+- **文件**: .claude/agents/code-reviewer.prompt.md
 - **评估时间**: 2026-01-23 14:32:15
 
 ### 性能评分
@@ -306,7 +287,7 @@ CLI工具：用户体验（Context退出）> 性能 > 安全
    - 内容: 完整评估报告、错误分析、改进建议
 
 2. **更新Agent版本**
-   - 读取: multi-agent-system/agents/{agent-name}.prompt.md
+   - 读取: .claude/agents/{agent-name}.prompt.md
    - 修改: 基于评估建议的具体行号
    - 确认: 等待用户确认（DR-016）
    - 执行: Edit工具应用修改

@@ -35,7 +35,10 @@ Start by understanding the current project context, then ask questions one at a 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `D:\cursor\file\Si Yuan\claude\plans\YYYY-MM-DD-<topic>-design.md`
+- Write the validated design to the plans directory.
+  - Read `.claude/config.json` to find `plans_dir`.
+  - If config not found, default to `docs/plans/`.
+  - Path format: `<plans_dir>\YYYY-MM-DD-<topic>-design.md`
 - Create the plans directory if it doesn't exist
 - Include the design rationale and alternatives considered
 - Commit the design document to git if in a git repository
@@ -59,11 +62,13 @@ Start by understanding the current project context, then ask questions one at a 
 ## Windows-Specific Notes
 
 When saving designs on Windows:
-- Use backslashes in paths: `D:\cursor\file\Si Yuan\claude\plans\`
+- Use backslashes in paths for Windows.
 - Ensure UTF-8 encoding for markdown files
 - Use PowerShell commands for directory creation if needed:
   ```powershell
-  New-Item -ItemType Directory -Force -Path "D:\cursor\file\Si Yuan\claude\plans"
+  $plansDir = (Get-Content .claude/config.json | ConvertFrom-Json).paths.plans_dir
+  if (-not $plansDir) { $plansDir = "docs/plans" }
+  New-Item -ItemType Directory -Force -Path $plansDir
   ```
 
 ## Example Usage
@@ -77,15 +82,15 @@ When saving designs on Windows:
 4. Present 3 approaches with trade-offs
 5. Design in 200-300 word sections
 6. Validate each section
-7. Save to `D:\cursor\file\Si Yuan\claude\plans\2026-01-13-feature-design.md`
+7. Save to `<plans_dir>\2026-01-13-feature-design.md`
 8. Ask if ready to implement
 
 ## Integration with File Organization Rules
 
 This skill follows your established file organization rules:
 
-1. **Design documents** → `D:\cursor\file\Si Yuan\claude\plans\`
+1. **Design documents** → `plans_dir` (from `.claude/config.json`)
 2. **Project-specific docs** → Project directory (e.g., `multi-agent-system\docs\`)
-3. **Temporary files** → `D:\cursor\file\.claude-temp\`
+3. **Temporary files** → `temp_root` (from `.claude/config.json`)
 
 Always ask if you're unsure about the correct location for a file.

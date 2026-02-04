@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769915373923-7pgb9q6r1",
+  "title": "生成今日工作日报",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769915373923,
+  "updatedAt": 1769916500772,
+  "lastResponseAt": 1769916277577,
+  "sessionId": "c36f5499-817b-43cb-8b33-960d95bb0a2f",
+  "sdkSessionId": "c36f5499-817b-43cb-8b33-960d95bb0a2f",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

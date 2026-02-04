@@ -127,7 +127,7 @@
   frequency: 1
   category: agent_design
   title: "Agent vs Skill的区别和生成规范"
-  content: "创建Agent时必须区分Agent和Skill：（1）Agent=可以主动调用的自主实体，在multi-agent-system/agents/目录下创建.prompt.md文件，用Task工具调用（2）Skill=用户手动触发的工具，在.claude/skills/目录下创建.json文件，用户输入/skillname调用。（3）如果需要AI主动判断何时使用，必须创建Agent而非Skill。（4）Agent必须具备主动研究能力（自动扫描数据、识别模式、生成分析）"
+  content: "创建Agent时必须区分Agent和Skill：（1）Agent=可以主动调用的自主实体，在.claude/agents/目录下创建.prompt.md文件，用Task工具调用（2）Skill=用户手动触发的工具，在.claude/skills/目录下创建.json文件，用户输入/skillname调用。（3）如果需要AI主动判断何时使用，必须创建Agent而非Skill。（4）Agent必须具备主动研究能力（自动扫描数据、识别模式、生成分析）"
   rationale: "用户创建了self-reflection-agent（实际是Skill），期望它能自动调用，但Skill不会自动触发。用户明确要求'不仅作为对话者，更作为具备主动研究能力的心理分析师'。必须记住：Skill只能手动调用，Agent可以主动调用。"
   impact:
     automation: critical
@@ -256,11 +256,31 @@
     good: "用户说'新建项目' → AI触发整体流水线 → 按Phase 1-5顺序执行所有Agent"
     bad: "用户说'分析优化' → AI使用general-purpose agent（不专业） → 没有调用code-reviewer"
 
+- id: DR-019
+  created: 2026-01-30
+  frequency: 0
+  category: thinking_methodology
+  title: "思维工具箱综合应用"
+  content: "使用思维工具选择矩阵，根据场景自动匹配工具：第一性原理（分析/优化/设计）、苏格拉底诘法（用户不确定）、奥卡姆剃刀（方案选择）、布鲁姆金字塔（学习指导）、水平思考（创新）、帕累托法则（效率优化）、系统思维（复杂系统）、墨菲定律（风险评估）。详细协议见thinking-toolkit_完整版.md"
+  rationale: "用户要求综合运用多种思维方法提高对话水平，但需平衡token效率。采用矩阵索引+外部文档方案，主文档只增加2.8KB，详细信息按需加载，节省82% token（对比完整添加15KB）。包含8个核心工具+组合协议+触发优先级。"
+  impact:
+    token_saving: "82%"
+    flexibility: critical
+    user_satisfaction: high
+    analysis_quality: critical
+    priority: highest
+  status: active
+  examples:
+    good: "用户：'应该用RayCaster还是深度相机？' → AI：第一性原理+奥卡姆剃刀 → '基于RayCaster有Bug+深度相机更简单，选深度相机拼接'"
+    good: "用户：'我想提高执行力' → AI：苏格拉底诘法+第一性原理 → 提问引导+基于INTJ的Se劣势推导方案"
+    good: "用户：'需要新功能' → AI：水平思考+布鲁姆金字塔 → 先发散创新再收敛评估"
+    bad: "用户：'应该用A还是B？' → AI：'其他人都在用A' → 没有使用奥卡姆剃刀（简单解释优先）"
+
 ```
 
 ## Rule Statistics
-- Total rules: 15
-- Active: 15
+- Total rules: 16
+- Active: 16
 - Deprecated: 0
-- Last updated: 2026-01-23
+- Last updated: 2026-01-30
 - Next merge check: At 20 rules

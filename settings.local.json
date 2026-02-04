@@ -22,7 +22,16 @@
       "mcp__github__search_repositories",
       "mcp__github__push_files",
       "mcp__github__create_or_update_file",
-      "mcp__firecrawl__firecrawl_map"
+      "mcp__firecrawl__firecrawl_map",
+      "mcp__tavily-search__tavily_search",
+      "mcp__github__list_commits",
+      "mcp__tavily-search__tavily_crawl",
+      "mcp__firecrawl__firecrawl_extract",
+      "mcp__tavily-search__tavily_research",
+      "mcp__github__search_code",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__github__list_issues",
+      "WebFetch(domain:github.com)"
     ]
   },
   "autoConfirm": true

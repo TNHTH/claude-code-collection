@@ -1,0 +1,19 @@
+{
+  "id": "conv-1770133710176-garb7tfpi",
+  "title": "Obsidian模板文件显示异常排查",
+  "titleGenerationStatus": "success",
+  "createdAt": 1770133710176,
+  "updatedAt": 1770172089613,
+  "lastResponseAt": 1770172089613,
+  "sessionId": "4e39d13f-04dd-4ae8-b864-f75a6e589c27",
+  "sdkSessionId": "4e39d13f-04dd-4ae8-b864-f75a6e589c27",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 81854,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 81854,
+    "percentage": 41
+  }
+}

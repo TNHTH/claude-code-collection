@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769917707873-x1kba4553",
+  "title": "整理Si Yuan文件夹为Obsidian格式",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769917707873,
+  "updatedAt": 1769939355309,
+  "lastResponseAt": 1769922371726,
+  "sessionId": "e85ccce5-6f3c-417a-a94a-2bf1de69dfc0",
+  "sdkSessionId": "e85ccce5-6f3c-417a-a94a-2bf1de69dfc0",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

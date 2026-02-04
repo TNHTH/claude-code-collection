@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769932531088-fpyn93uwb",
+  "title": "检查文件冗余与无用文件清理",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769932531088,
+  "updatedAt": 1769939346439,
+  "lastResponseAt": 1769933743468,
+  "sessionId": "3fbdd89d-0313-4104-acea-71a240308a84",
+  "sdkSessionId": "3fbdd89d-0313-4104-acea-71a240308a84",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

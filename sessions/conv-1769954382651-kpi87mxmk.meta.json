@@ -1,0 +1,20 @@
+{
+  "id": "conv-1769954382651-kpi87mxmk",
+  "title": "生成1月2日每日时事简报",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769954382651,
+  "updatedAt": 1769954485966,
+  "lastResponseAt": 1769954485966,
+  "sessionId": "805e9fb9-0437-4067-8bcb-efc68bcd1e15",
+  "sdkSessionId": "805e9fb9-0437-4067-8bcb-efc68bcd1e15",
+  "currentNote": "Si Yuan/世界变化/每日时事/2026年1月/2026年1月22日.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 65523,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 65523,
+    "percentage": 33
+  }
+}

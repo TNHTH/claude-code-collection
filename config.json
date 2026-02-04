@@ -1,0 +1,12 @@
+{
+  "paths": {
+    "docs_root": "Si Yuan\\claude",
+    "temp_root": ".claude-temp",
+    "plans_dir": "Si Yuan\\claude\\plans",
+    "extracted_content_dir": "Si Yuan\\claude\\extracted-content"
+  },
+  "settings": {
+    "language": "zh-CN",
+    "use_absolute_paths": false
+  }
+}

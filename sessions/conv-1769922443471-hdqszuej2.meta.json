@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769922443471-hdqszuej2",
+  "title": "整理Si Yuan文件夹执行方案分析",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769922443471,
+  "updatedAt": 1769939349651,
+  "lastResponseAt": 1769932633866,
+  "sessionId": "52629271-78c5-4fda-99de-233ccbba8560",
+  "sdkSessionId": "52629271-78c5-4fda-99de-233ccbba8560",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

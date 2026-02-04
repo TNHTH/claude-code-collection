@@ -1,6 +1,6 @@
 ---
 name: file-organizer
-description: Intelligently organizes your files and folders across your computer by understanding context, finding duplicates, suggesting better structures, and automating cleanup tasks. Follows your file organization rules (D:\cursor\file\Si Yuan\claude\ for docs, .claude-temp\ for temp files). Reduces cognitive load and keeps your digital workspace tidy without manual effort.
+description: Intelligently organizes your files and folders across your computer by understanding context, finding duplicates, suggesting better structures, and automating cleanup tasks. Follows your file organization rules (reads paths from .claude/config.json). Reduces cognitive load and keeps your digital workspace tidy without manual effort.
 ---
 
 # File Organizer
@@ -8,8 +8,9 @@ description: Intelligently organizes your files and folders across your computer
 智能文件组织助手，帮助维护清晰、逻辑化的文件结构。
 
 **集成文件组织规则**:
-- 非项目文档 → `D:\cursor\file\Si Yuan\claude\`
-- 临时文件 → `D:\cursor\file\.claude-temp\`
+- 读取 `.claude/config.json` 获取路径配置
+- 非项目文档 → `docs_root` (默认: `docs/claude/`)
+- 临时文件 → `temp_root` (默认: `.claude-temp/`)
 - 项目文件 → 各自项目目录
 
 ---
@@ -42,7 +43,7 @@ description: Intelligently organizes your files and folders across your computer
 ### 文档存放规则
 
 ```
-✅ 非项目文档 → D:\cursor\file\Si Yuan\claude\
+✅ 非项目文档 → `docs_root` (see config)
    - 科普类文档
    - 分析报告
    - 学习笔记类文档
@@ -52,7 +53,7 @@ description: Intelligently organizes your files and folders across your computer
    - 用户明确指定路径
    - 属于特定项目
 
-✅ 临时文件 → D:\cursor\file\.claude-temp\
+✅ 临时文件 → `temp_root` (see config)
    - tmpclaude-*-cwd文件
    - 临时测试文件
    - 临时脚本文件
@@ -83,7 +84,7 @@ description: Intelligently organizes your files and folders across your computer
 
 □ 用户明确指定路径？
   - 是 → 使用用户指定路径
-  - 否 → 存放到 Si Yuan\claude\
+  - 否 → 存放到 `docs_root` (from config)
 
 □ 检查目标目录是否存在
   - 不存在 → 创建目录
@@ -94,7 +95,7 @@ description: Intelligently organizes your files and folders across your computer
 ### 清理临时文件时
 ```
 □ 确认是否为临时文件
-□ 存放到 .claude-temp/ 目录
+□ 存放到 `temp_root` 目录
 □ 对话结束后提醒用户清理
 ```
 
@@ -177,13 +178,13 @@ cd D:\cursor\file
 基本操作:
 ```powershell
 # 创建目录
-New-Item -ItemType Directory -Force -Path "Si Yuan\claude\"
+New-Item -ItemType Directory -Force -Path $docsRoot
 
 # 移动文件
-Move-Item "file.txt" "Si Yuan\claude\file.txt"
+Move-Item "file.txt" "$docsRoot\file.txt"
 
 # 清理临时文件
-Get-ChildItem ".claude-temp\*.txt" | Remove-Item
+Get-ChildItem "$tempRoot\*.txt" | Remove-Item
 ```
 
 ---
@@ -202,3 +203,11 @@ Get-ChildItem ".claude-temp\*.txt" | Remove-Item
 **Version**: v2.0 (Lean Runtime)
 **Last Updated**: 2026-01-17
 **Integrated Rules**: file-organization.md
+
+## Common Errors & Solutions
+1. **Regex syntax errors**: Invalid regular expression pattern provided for matching.
+   - *Solution*: Test regex patterns in a separate tool and ensure special characters are escaped.
+2. **Read-only files**: Attempting to move or rename files locked by the system or marked read-only.
+   - *Solution*: Close applications using the files or change file attributes before organizing.
+3. **Recursive loops**: Source directory is inside the destination directory or vice versa.
+   - *Solution*: Ensure source and destination paths are distinct and not nested in a way that causes loops.

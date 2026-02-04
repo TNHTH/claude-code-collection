@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769848035578-b9bxp3mfz",
+  "title": "你好！有什么可以帮你的吗？",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769848035584,
+  "updatedAt": 1769852305292,
+  "lastResponseAt": 1769849082895,
+  "sessionId": "0443b710-7f7f-45ca-9593-089a2945dfa7",
+  "sdkSessionId": "0443b710-7f7f-45ca-9593-089a2945dfa7",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

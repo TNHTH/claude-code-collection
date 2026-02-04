@@ -1,6 +1,6 @@
 ---
 name: tapestry
-description: Unified content extraction and action planning. Use when user says "tapestry <URL>", "weave <URL>", "help me plan <URL>", "extract and plan <URL>", "make this actionable <URL>", or similar phrases indicating they want to extract content and create an action plan. Automatically detects content type (YouTube video, article, PDF) and processes accordingly. Saves content to D:\cursor\file\Si Yuan\claude\extracted-content\ and plans to D:\cursor\file\Si Yuan\claude\plans\.
+description: Unified content extraction and action planning. Use when user says "tapestry <URL>", "weave <URL>", "help me plan <URL>", "extract and plan <URL>", "make this actionable <URL>", or similar phrases indicating they want to extract content and create an action plan. Automatically detects content type (YouTube video, article, PDF) and processes accordingly. Reads paths from .claude/config.json.
 allowed-tools: Bash,Read,Write
 ---
 
@@ -32,9 +32,9 @@ allowed-tools: Bash,Read,Write
 ## 文件组织
 
 ```
-Content files → D:\cursor\file\Si Yuan\claude\extracted-content\
-Plan files    → D:\cursor\file\Si Yuan\claude\plans\
-Temp files    → D:\cursor\file\.claude-temp\
+Content files → `extracted_content_dir` (from config)
+Plan files    → `plans_dir` (from config)
+Temp files    → `temp_root` (from config)
 ```
 
 ---

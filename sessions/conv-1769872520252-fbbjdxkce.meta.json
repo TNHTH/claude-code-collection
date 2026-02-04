@@ -1,0 +1,19 @@
+{
+  "id": "conv-1769872520252-fbbjdxkce",
+  "title": "搜索整合每日要闻提示词",
+  "titleGenerationStatus": "success",
+  "createdAt": 1769872520275,
+  "updatedAt": 1769915365347,
+  "lastResponseAt": 1769915357367,
+  "sessionId": "127bda2b-7630-4960-bee1-1e1959d08901",
+  "sdkSessionId": "127bda2b-7630-4960-bee1-1e1959d08901",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

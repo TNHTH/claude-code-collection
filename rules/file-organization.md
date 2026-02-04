@@ -9,6 +9,7 @@
 ```
 D:\cursor\file\Si Yuan\claude\
 ```
+*(注：建议在.claude/config.json中配置相对路径 `Si Yuan\claude` 以支持跨设备使用)*
 
 ### 适用范围
 
@@ -36,7 +37,7 @@ D:\cursor\file\Si Yuan\claude\
 **正确操作**：
 ```
 用户：生成一个关于xxx的文档
-AI：[将文档生成到] D:\cursor\file\Si Yuan\claude\xxx科普.md
+AI：[将文档生成到] Si Yuan\claude\xxx科普.md
 ```
 
 **用户指定路径**：
@@ -56,6 +57,7 @@ AI：[将文档生成到] docs/tutorial.md（按用户指定路径）
 ```
 D:\cursor\file\.claude-temp\
 ```
+*(注：建议在.claude/config.json中配置相对路径 `.claude-temp`)*
 
 ### 临时文件类型
 
@@ -72,7 +74,7 @@ D:\cursor\file\.claude-temp\
 
 ### 注意事项
 
-⚠️ **禁止**在根目录（`D:\cursor\file\`）下生成散乱的临时文件
+⚠️ **禁止**在根目录下生成散乱的临时文件
 ⚠️ **禁止**将临时文件提交到 Git 仓库（已在 `.gitignore` 中配置）
 
 ---
